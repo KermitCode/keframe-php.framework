@@ -1,0 +1,5 @@
+User-Agent: *
+Disallow: /keframe/
+Disallow: /uploads/
+Disallow: /application/
+
