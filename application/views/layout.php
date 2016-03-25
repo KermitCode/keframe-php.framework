@@ -124,7 +124,7 @@
             	</main>
 
 				<aside class="sidebar col-xs-12 col-sm-3">
-                    <a href="<?php echo $this->makeUrl('keframework');?>">
+                    <a href="http://www.04007.cn/article/99.html">
                         <button type="button" class="btn btn-success" id="keframe">本站所用框架及本站源码下载</button>
                     </a>
                     <section id="categories-2" class="widget widget-3 even widget_categories" style="margin-top:15px;">

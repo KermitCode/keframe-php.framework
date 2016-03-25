@@ -47,7 +47,7 @@ return array(
     #缓存配置
     'cache' => array(
         'cache_open'=>1,                    #缓存是否打开，如打开会检查
-        'cache_path' => APPPATH.cache,      #默认缓存放在对应项目的cache目录下/，此处可设置子目录，如固定在application目录下可使用 APPPATH.cache
+        'cache_path' => APPPATH.'cache',    #默认缓存放在对应项目的cache目录下/，此处可设置子目录，如固定在application目录下可使用 APPPATH.cache
         'cache_time'=> 86400,               #默认缓存时间
     ),
 

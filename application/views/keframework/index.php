@@ -38,10 +38,10 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li class="active"><a href="index.html">框架GitHub下载</a></li>
-            <li><a href="services.html">文档下载</a></li>
+            <li class="active"><a href="https://github.com/KermitCode/keframe-php.framework">框架GitHub下载</a></li>
+            <li><a href="http://www.04007.cn/article/99.html">文档下载</a></li>
             <li><a href="http://www.04007.cn">DEMO</a></li>
-            <li><a href="#">留言</a></li>
+            <li><a href="http://www.04007.cn/article/99.html">留言</a></li>
             <li><a data-toggle="modal" data-target="#myModal" href="#myModal"><i class="fa fa-envelope-o"></i></a></li>
           </ul>
         </div><!--/.nav-collapse -->

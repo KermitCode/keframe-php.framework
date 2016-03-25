@@ -80,26 +80,34 @@ class PageController extends BaseController
 	}
 	
 	//修改下载资源对应的文章
-	public function changeSource($pageid,$arr){
+	public function changeSource($pageid,$arr)
+    {
 		
 		//$arr为文章中对应的下载资源ID数组
 		if(!$arr) return;
 		
 		//取出资源集合
-		$source=$this->KE('keMysql')->db_all('ke_download',"id in(".implode(',',$arr).")");
+        $DownloadModel = new DownloadModel();
+		$source = $DownloadModel->select(array("id in"=>$arr));
+
 		if(!$source) return;
 		
 		//修改资源对应文章
-		foreach($source as $row){
+		foreach($source as $row)
+        {
 			$ids=array();
-			if($row['relatepage']) $ids=explode(',',$row['relatepage']);
+			if($row['relatepage']) $ids=explode(',', $row['relatepage']);
 			$ids[]=$pageid;
 			$ids=array_unique($ids);
-			foreach($ids as $k=>$v){if(!$v) unset($ids[$k]);}
+			foreach($ids as $k=>$v)
+            {
+                if(!$v) unset($ids[$k]);
+            }
 			sort($ids);
-			if($ids){
-				$this->KE('keMysql')->db_update('ke_download',array('relatepage'=>implode(',',$ids)),"id={$row['id']}");
-				}		
+			if($ids)
+            {
+				$DownloadModel->update(array('relatepage'=>implode(',',$ids)), array('id'=> $row['id']));
+			}	
 		}
 		
 		return true;	
