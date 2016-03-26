@@ -63,7 +63,7 @@ return array(
 	#URL伪静态配置
 	'url_rewrite'=>array(
 
-		'rewrite_open'=>true,				#伪静态开关
+		'rewrite_open'=>false,				#伪静态开关
 		'rewrite_suffix'=>'.html',			#伪静态后缀
 		'rewrite_rule'=>array(				#伪静态规则
 			'php/<string>'=>"php/list/type/<string>",

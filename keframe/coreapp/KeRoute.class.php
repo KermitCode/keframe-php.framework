@@ -297,7 +297,7 @@ final class KeRoute extends KeBase implements KeKe
 		switch($type)
         {
 
-			case 'string' :$r= "/^{$s}\/([a-zA-Z]*)".($end?'$':'')."/i";break;
+			case 'string' :$r= "/^{$s}\/([a-zA-Z\-_]*)".($end?'$':'')."/i";break;
 
 			case 'id'	  :$r= "/^{$s}\/(\d*)".($end?'$':'')."/i";break;
 
