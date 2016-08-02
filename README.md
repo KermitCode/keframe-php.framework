@@ -11,3 +11,15 @@
 框架的主页：<a href="http://www.04007.cn/keframework.html">http://www.04007.cn/keframework.html</a>
 
 友情提醒：因整个程序文件夹中带了SQL数据库文件以及DEMO网站的图片等数据，有点大。
+
+
+2019-08-02的一些更新：
+1，网站增加了很多功能；
+
+2，修复了框架一些BUG；
+
+3，移动了框架的日志/缓存目录至storage目录下，以方便使用一些持续集成系统。
+
+4，评论增加了敏感词过滤
+
+5，WEB右侧栏目增加了历史上的今天模块，调用：http://history.04007.cn/HisMain/interface
