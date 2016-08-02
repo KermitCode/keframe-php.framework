@@ -44,7 +44,7 @@ final class KeCache extends KeBase implements KeKe
     public static function setCatchConfig($config)
     {
 
-		$catchPath = APPLICATION_PATH.'cache/';
+		$catchPath = ROOTPATH.'storage/cache/';
 		
 		if($config->cache_path && is_dir($config->cache_path))
 		{

@@ -15,7 +15,7 @@ final class KeLogs extends KeBase implements KeKe
 
 	//日志格式
 
-    const VISIT_TEMPLATE = "[TRACE:%s] [logid]%s [IP]%s [uri]%s [app]%s [refer][%s] [get]%s [post]%s [cookie]%s [uid]%s [logs]%s \r\n";
+    const VISIT_TEMPLATE = "[TRACE:%s] [logid]%s [IP]%s [uri]%s [app]%s [refer][%s] [get]%s [post]%s [cookie]%s [uid]%s [logs]%s [return][%s] \r\n";
     const ERROR_TEMPLATE = "[ERROR:%s] [logid]%s [IP]%s [uri]%s [app]%s [filename=%s line=%s] [errno=%s errmsg=%s] [uid]%s \r\n";
 	const SLOW_TEMPLATE = "[SLOW:%s] [logid]%s [IP]%s [uri]%s [app]%s [slowsql][%s] [slowcurl]%s \r\n";
     
@@ -100,7 +100,7 @@ final class KeLogs extends KeBase implements KeKe
 
 		$folder = @date($config->folder);
 
-		$logPath = APPLICATION_PATH.'logs/'.($folder?($folder.'/'):'');
+		$logPath = ROOTPATH.'storage/logs/'.($folder?($folder.'/'):'');
 		
 		if(!FileHelp::checkWrite($logPath))
 		{
@@ -154,14 +154,16 @@ final class KeLogs extends KeBase implements KeKe
             处理一般日志内容
      ***********************************/
 
-    private static function makeVisitChar()
+    private static function makeVisitChar($error = null)
     {
 
 		$logArr = array_merge(self::baseLog(), array_values(array_slice(self::$__logArr, 0, 4)));
 
 		$logArr[] = defined('UID') ? UID : '';
+        
+		$logArr[] = json_encode(self::$_fullLevel?(KeDebug::$__debugs):array('basic'=>'no'));
 
-		$logArr[] = json_encode(KeDebug::$__debugs);
+        $logArr[] = $error?('Error:'.$error):'http:200';
 
 		return vsprintf(self::VISIT_TEMPLATE, $logArr);
     
@@ -252,12 +254,12 @@ final class KeLogs extends KeBase implements KeKe
             访问日志
      ***********************************/
 	
-	public static function visitLog()
+	public static function visitLog($error = null)
     {
 
 		self::slowLog();
 
-		FileHelp::writeAdd(self::$__logPath.self::$__logFile, self::makeVisitChar());
+		FileHelp::writeAdd(self::$__logPath.self::$__logFile, self::makeVisitChar($error));
 	
 	}
 

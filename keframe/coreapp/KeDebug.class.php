@@ -176,7 +176,7 @@ final class KeDebug extends KeBase implements KeKe
 
         $debugChar = '';
 	
-		KeLogs::visitLog();
+		KeLogs::visitLog(strip_tags($error));
 
         if(self::$__debugShow)
         {
@@ -205,9 +205,9 @@ final class KeDebug extends KeBase implements KeKe
 
             $debugChar = HtmlHelp::debugTable($debugChar);
 
-			exit($debugChar?($error.'<br><hr>'.$debugChar):'<h1>ERROR:</h1>');
-        
-        } 
+            exit($debugChar?($error.'<br><hr>'.$debugChar):'<h1>ERROR</h1>');
+
+        }
 
 	}
 

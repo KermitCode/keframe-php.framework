@@ -266,8 +266,8 @@ final class KeRoute extends KeBase implements KeKe
 
 
             //如果匹配规则则替换成urlRewrite之前的数据
-
-			if($rs = @preg_match($rule, $keArr[0].'/'.$keArr[1], $matchs))
+            
+			if(isset($keArr[0]) && isset($keArr[1]) && $rs = @preg_match($rule, $keArr[0].'/'.$keArr[1], $matchs))
             {
 
 				$real=str_replace("<{$match[1]}>",$matchs[1],$rurl);

@@ -194,7 +194,7 @@ class KeModel extends KeModelBase
 
 			$this->Attributes = $data;
 
-			return true;
+			return $result;
 		
 		}
 
