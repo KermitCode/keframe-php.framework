@@ -52,7 +52,7 @@ class DownloadController extends BaseController
 		$url=$this->uploadUrl.$this->downData['filepath'];
 		
 		#下载次数加1
-		$Download->increment(array('downloads'=>1));
+		$DownloadModel->increment(array('downloads'=>1));
 		FileHelp::outputFile($file_size, $url);
 		
 	}

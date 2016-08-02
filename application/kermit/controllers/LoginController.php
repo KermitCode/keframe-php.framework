@@ -38,7 +38,7 @@ class LoginController extends BaseController
 		
 		//账号密码
 		$adminArr = array(
-			'admin'  => 'e10adc3949ba59abbe56e057f20f883e'
+			'admin'=> '11111111111111111111111111111111',
 		);
 		$username = $this->post('username');
 		$password = md5($this->post('password'));

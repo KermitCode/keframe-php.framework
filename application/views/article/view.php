@@ -25,10 +25,31 @@
              </footer>
          </div>
     </article>
-    
+
+	<article>
+		<div class="widget-wrap">
+			<h4 class="widget-title">相关文章</h4>		
+			<ul>
+				<?php foreach($this->pageData['related'] as $id=>$title){?>
+				<li><a href="<?php echo $this->makeUrl('Article/view',array('id'=>$id));?>" title="<?php echo stripslashes($title);?>"><?php echo stripslashes($title);?></a></li>
+				<?php }?>
+			</ul>
+		</div>
+
+		<div class="widget-wrap">
+			<h4 class="widget-title">本栏最新文章</h4>		
+			<ul>
+				<?php foreach($this->pageData['newclass'] as $id=>$title){?>
+				<li><a href="<?php echo $this->makeUrl('Article/view',array('id'=>$id));?>" title="<?php echo stripslashes($title);?>"><?php echo stripslashes($title);?></a></li>
+				<?php }?>
+			</ul>
+		</div>
+    </article>
+
     <div style="display:none;" id="loadimg">
     	<div class="text-center"><img src="<?php echo $this->imagesUrl;?>frontdir/load.gif" /></div>
     </div>
+	<h4 class="widget-title">文章评论</h4>
     <article id="pagecomment" class="entry post publish">
     </article>
     
@@ -101,4 +122,5 @@
 			$('#pagecomment').fadeIn('fast');
 		});
 	});
+	var arid = "<?php echo $this->pageData['id']?>";
     </script>

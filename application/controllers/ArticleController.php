@@ -24,7 +24,7 @@ class ArticleController extends BaseController
 		{
 			RedirectHelp::toUrl($this->makeUrl('home/index'));
 		}
-		
+
 		//数据展现处理
 		$this->pageData['ar_title']=stripslashes($this->pageData['ar_title']);
 		$this->pageData['ar_text']=stripslashes($this->pageData['ar_text']);
@@ -39,6 +39,10 @@ class ArticleController extends BaseController
 		
 		//浏览次数增
 		$ArticleModel->increment(array('ar_view'=>rand(1,3), 'ar_views'=>1));
+
+		//取出相关文章、本栏目最新文章
+		$this->pageData['related']=$this->getRelated($this->pageData['ar_tags'], $id);
+		$this->pageData['newclass']=$this->getNewclass($this->pageData['ar_cid'], $id);
 
 		#进入详情页标记
 		$_SESSION['irt_yes_'.$id]=1;
@@ -139,6 +143,20 @@ class ArticleController extends BaseController
 		
 		if(!$mess){$result['message']='评论不能为空!';exit(json_encode($result));}
 		if(!$arid){$result['message']='非法操作!';exit(json_encode($result));}
+
+        #评论过滤-是否有效
+        if(!FilterHelp::isValidData($mess))
+        {
+            $result['message']='评论失败-无效评论!';
+			exit(json_encode($result));
+        }
+        
+        #评论过滤-敏感词检查
+        /*if(FilterHelp::filterSensitiveString($mess))
+        {
+            $result['message']='评论失败-评论中有敏感字符!';
+			exit(json_encode($result));
+        }*/
 		
 		$insert_arr=array(
 			'com_uid'=>$this->visitor,
@@ -157,7 +175,7 @@ class ArticleController extends BaseController
 			$result['message']='请不要评论过快!';
 			exit(json_encode($result));
 		}
-		
+
 		#插入评论及记录评论数量
 		$saveRs = $CommentModel->insert($insert_arr);
 		if($saveRs)
@@ -174,5 +192,105 @@ class ArticleController extends BaseController
 		exit(json_encode($result));
 		
 	}
+
+	//提取弹幕数据
+	public function actionBarrager($id = 0)
+	{
+		$id=intval($id);
+		$this->layout = false;
+		$CommentModel = new CommentModel;
+
+		
+		$conditions = array();
+		if($id)
+		{
+			$conditions = array('com_arid'=>$id);
+		}
+		$this->comment = $CommentModel->select($conditions, 'id desc','', 30);
+		
+		$barrages= array();
+		$imgArr = array('cute.png', 'haha.gif', 'heisenberg.png', 'mj.gif', 'yaseng.png');
+		if($this->comment)
+		{
+			foreach($this->comment as $k=>$row)
+			{
+				$random_keys = array_rand($imgArr, 1);
+				$barrages[] = array(
+							'info'   => StrHelp::substr_zh(stripcslashes($row['com_text']), 60),
+							'img'    => $this->imagesUrl.'frontdir/barrager/img/'.$imgArr[$random_keys],
+							'href'   => $this->makeUrl('article/view', array('id' =>$row['com_arid'])),
+							);
+			}
+		}
+		//$this->debug($barrages);exit;
+		exit(json_encode($barrages));
+	}
+
+	//给每个关键词添加KEY
+	public static function addkey($n)
+	{
+		return("ar_title like '%".$n."%'");
+	}
+
+	//取出相关文章
+	public function getRelated($tags, $id)
+	{
+		if(!$tags)
+		{
+			return array();
+		}
+
+		$Related=$this->KeCache->read('relate/RelatedCache_'.$id);
+		if($Related) return $Related;
+	
+		//拼接SQL语句
+		$tags = explode(',', $tags);
+		$tags = array_map("ArticleController::addkey", $tags);
+		$tag_sql = implode(' or ', $tags);
+
+		//执行查询
+		$ArticleModel = new ArticleModel();
+		$temp = $ArticleModel->select($tag_sql, 'id desc', 'id,ar_title', 10);
+		$Related = array();
+
+		foreach($temp as $row)
+		{
+			$Related[$row['id']] = $row['ar_title'];
+		}
+
+		$this->KeCache->write('relate/RelatedCache_'.$id, $Related, 86400*5);
+		return $Related;
+
+	}
+
+	//取出本栏目最新文章
+	public function getNewclass($classid, $id)
+	{
+		if(!$classid)
+		{
+			return array();
+		}
+	
+		$Newclass=$this->KeCache->read('newclass/NewclassCache_'.$id);
+		if($Newclass) return $Newclass;
+
+		//拼接SQL语句
+		$tag_sql = " ar_cid = {$classid} and id != {$id} ";
+
+		//执行查询
+		$ArticleModel = new ArticleModel();
+		$temp = $ArticleModel->select($tag_sql, 'id desc', 'id,ar_title', 10);
+		$Newclass = array();
+
+		foreach($temp as $row)
+		{
+			$Newclass[$row['id']] = $row['ar_title'];
+		}
+
+		$this->KeCache->write('newclass/NewclassCache_'.$id, $Newclass, 86400*5);
+		return $Newclass;
+
+	}
+
 
 }

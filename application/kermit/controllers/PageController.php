@@ -132,6 +132,7 @@ class PageController extends BaseController
 		$data['ar_text'] = str_replace(' style="line-height:1.5;"','',$data['ar_text']);
 		$data['ar_title'] = $data['ar_title'];
 		$data['ar_tags'] = str_replace('，',',',$data['ar_tags']);
+
 		$ArticleModel = new ArticleModel();
 		if($id) $ArticleModel->update($data, array('id'=>$id));
 		else{
@@ -145,11 +146,12 @@ class PageController extends BaseController
 			}*/
 			
 			$data['ar_yd'] = date('Y-m',$data['ar_time']);
-			$ArticleModel->insert($data);
+			$id = $ArticleModel->insert($data);
 		}
 	
 		//取出文章中的资源ID
 		$rs=preg_match_all('/<a.*\/download\/(.*?)\.html.*<\/a>/i', $data['ar_text'], $source);
+	
 		if($rs)
 		{
 			$keys=array_values($source[1]);

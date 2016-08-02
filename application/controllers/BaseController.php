@@ -51,6 +51,12 @@ class BaseController extends KeController
 		//全局菜单加载
 		$this->commonArr = $this->loadConfig('common');
 
+        //全局常用链接
+        $this->getNormal();
+
+		//历史数据
+		$this->getHistory();
+
 	}
 
 
@@ -242,6 +248,64 @@ class BaseController extends KeController
 		#记录访问日志
 		$this->sprider?$this->recordEngine():$this->recordVisit();
 		
+	}
+
+    //取出常用链接
+	public function getNormal()
+	{
+
+		//取缓存
+		$data = $this->KeCache->read('normalCache');
+		if($data)
+		{
+			$this->normal=$data;
+			return;
+		}
+
+		#取出友链数据
+		$OthersModel = new OthersModel();
+		$link = $OthersModel->selectOne(array('id'=>2));
+		$link = $link['data'];
+		$link = explode("\n",$link);
+		
+		$this->normal=array();
+		if($link)
+		{
+			foreach($link as $value)
+			{
+				if(!$value) continue;
+				list($name,$url)=explode('<=>',$value);
+				$this->normal[$name]=$url;
+			}
+		}
+		$link= null;
+
+		//写缓存
+		$this->KeCache->write('normalCache', $this->link);
+		return;
+	}
+
+	//取出历史上的今天数据并缓存
+	public function getHistory()
+	{
+
+		//取缓存
+		$data = $this->KeCache->read('historyCache');
+		if($data && $data['date'] == date("Y-m-d"))
+		{
+			$this->historyData = $data['char'];
+			return;
+		}
+
+		//调用接口取数据
+		$data['char'] =file_get_contents("http://history.04007.cn/HisMain/interface");
+		$data['char'] = iconv("gbk", "UTF-8", $data['char']);
+		$data['date'] = date("Y-m-d");
+
+		//写缓存
+		$this->KeCache->write('historyCache', $data);
+		$this->historyData = $data['char'];
+		return;
 	}
 
 }

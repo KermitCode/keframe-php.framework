@@ -24,6 +24,9 @@ class SearchController extends BaseController
 		//取搜索数据
 		$ArticleModel = new ArticleModel();
 		$this->pageData = $ArticleModel->page($this->page, 18, 'id desc', array('ar_title like'=>$this->query), array('id','ar_time','ar_title'));
+
+        //展示的时候去掉返斜线
+        $this->query = stripcslashes($this->query);
 		$this->view();
 	
 	}

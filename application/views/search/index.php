@@ -3,7 +3,7 @@
 		<div class="entry-wrap">
             <header class="entry-header">	
                 <h3 class="entry-title" itemprop="headline">
-                    <a href="<?php echo $this->makeUrl('Article/view',array('id'=>$row['id']));?>" rel="bookmark" title="<?php echo $row['ar_title'];?>"><?php echo str_replace($this->query,"<strong><span style='color:red;font-weight:bolder;'>{$this->query}</span></strong>",$row['ar_title']);?></a>
+                    <a href="<?php echo $this->makeUrl('Article/view',array('id'=>$row['id']));?>" rel="bookmark" title="<?php echo $row['ar_title'];?>"><?php echo str_replace($this->query,"<strong><span style='color:red;font-weight:bolder;'>{$this->query}</span></strong>",stripcslashes($row['ar_title']));?></a>
                 </h3>
                 <div class="entry-meta">
                     <time class="entry-time" itemprop="datePublished" title="<?php echo date('F j, Y -l',$row['ar_time']);?>"><?php echo date('F j, Y -l',$row['ar_time']);?></time>

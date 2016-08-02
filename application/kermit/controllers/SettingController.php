@@ -67,6 +67,27 @@ class SettingController extends BaseController
 		//加载视图
 		$this->view();
 	}
+
+    //常用连接
+	public function actionNormal()
+	{
+
+		//修改链接时的处理
+		if($link = $this->post('link'))
+		{
+			$save['data'] = $link;	
+			$this->NormalModel->updateTable('ke_data', $save, array('id'=>2));
+            $this->KeCache->remove('normalCache');
+			RedirectHelp::alertGo('修改成功');
+		}
+		
+		//取出设置数据
+		$this->link = $this->NormalModel->selectOneTable('ke_data', array('id'=>'2'));
+		$this->link = $this->link['data'];
+		
+		//加载视图
+		$this->view();
+	}
 	
 		
 }

@@ -11,11 +11,15 @@
 <link rel='stylesheet' href='<?php echo $this->imagesUrl;?>frontdir/css/style.css?ver=4.1.1' type='text/css' media='all' />
 <script src="<?php echo $this->imagesUrl;?>admindir/js/jquery-1.8.3.min.js"></script>
 <script src="<?php echo $this->imagesUrl;?>frontdir/js/bootstrap.js"></script>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $this->imagesUrl;?>frontdir/barrager/barrager.css">
+<script src="<?php echo $this->imagesUrl;?>frontdir/barrager/jquery.barrager.min.js"></script>
 <!--[if lt IE 9]>
 <script src="<?php echo $this->imagesUrl;?>frontdir/js/html5.js" type="text/javascript"></script>
 <![endif]-->
 <style type="text/css" id="custom-css"></style>
 <style type="text/css">.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style>
+<script language="javascript"> var arid = 0;</script>
 </head>
 
 <body class="wordpress ltr en en-us child-theme multisite blog-8 y2015 m03 d14 h14 saturday logged-out singular singular-post singular-post-582 group-blog layout-2c-l">
@@ -49,7 +53,11 @@
                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
                 <a title="资源下载" href="<?php echo $this->makeUrl('download/index');?>">资源下载</a></li>
                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
-                <a title="KeFrame框架" href="<?php echo $this->makeUrl('keframework');?>">KeFrame框架</a></li>
+                <a title="KeFrame框架" href="<?php echo $this->makeUrl('keframework');?>" style="color:#fff;">KeFrame框架</a></li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
+                <a title="KeFrame框架" target="_blank" href="http://history.04007.cn">历史上的今天</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
+                <a title="KeFrame框架" target="_blank" href="http://weather.04007.cn">04007城市温度之最</a></li>
             </ul>
         </div>  
       </div><!-- /.container -->
@@ -129,10 +137,15 @@
                     </a>
                     <section id="categories-2" class="widget widget-3 even widget_categories" style="margin-top:15px;">
                         <div class="widget-wrap">
-                            <h4 class="widget-title">微信扫码赠小费-^_^!</h4>
-                            <img src="<?php echo $this->fullUrl;?>/uploads/04007cn.jpg">
-                            <!-- <img src="<?php echo $this->webUrl;?>/uploads/04007.cn.png"><br>
-                            <img src="<?php echo $this->webUrl;?>/uploads/qq.png"> -->
+							<h4 class="widget-title">历史上的<?php echo date("m月d日");?>  <a href="http://history.04007.cn/" style="float:right"><small>更多>></small></a></h4>
+							<?php 
+								/*<h4 class="widget-title">微信扫码赠小费-^_^!</h4>
+								 <img src="<?php echo $this->fullUrl;?>/uploads/04007cn.jpg">
+								<!-- <img src="<?php echo $this->webUrl;?>/uploads/04007.cn.png"><br>
+								<img src="<?php echo $this->webUrl;?>/uploads/qq.png"> */
+								echo $this->historyData;
+							?>
+                            
                         </div>
                     </section>
 
@@ -147,12 +160,26 @@
                         </div>
                     </section>
                     
+					<?php if($this->controller=='home' && $this->action=='index' && $this->link){?>
+					<section id="categories-2" class="widget widget-3 even widget_categories">
+                        <div class="widget-wrap">
+                            <h4 class="widget-title">常用链接</h4>		
+                            <ul class="monthstat">
+                            	<?php foreach($this->normal as $name=>$url){?>
+                                <li class="cat-item cat-item-2" ><a href="javascript:void(0)" onclick="window.location.href='<?php echo trim($url);?>';" rel="nofollow" ><?php echo $name;?></a></li>
+                                <?php }?>
+                            </ul>
+                        </div>
+                    </section>
+					<?php }?>
+                    
+                    <?php if($this->controller!='tools'){?>
                     <section id="categories-2" class="widget widget-3 even widget_categories">
                         <div class="widget-wrap">
                             <h4 class="widget-title">月份归档 <small> (共计：<?php echo array_sum($this->monthArr);?>)</small></h4>		
-                            <ul>
+                            <ul class="monthstat">
                             	<?php foreach($this->monthArr as $month=>$num){?>
-                                <li class="cat-item cat-item-2"><a href="<?php echo $this->makeUrl('Article/month',array('yd'=>$month));?>" ><?php echo "{$month}发表篇数 ({$num})";?></a></li>
+                                <li class="cat-item cat-item-2"><a href="<?php echo $this->makeUrl('Article/month',array('yd'=>$month));?>" ><?php echo "{$month}发表({$num})篇";?></a></li>
                                 <?php }?>
                             </ul>
                         </div>
@@ -168,12 +195,13 @@
                             </ul>
                         </div>
                     </section>
+                    <?php }?>
                     
                     <?php if($this->controller=='home' && $this->action=='index' && $this->link){?>
                     <section id="categories-2" class="widget widget-3 even widget_categories">
                         <div class="widget-wrap">
                             <h4 class="widget-title">友情链接</h4>		
-                            <ul>
+                            <ul class="monthstat">
                             	<?php foreach($this->link as $name=>$url){?>
                                 <li class="cat-item cat-item-2"><a href="<?php echo $url;?>" target="_blank" ><?php echo $name;?></a></li>
                                 <?php }?>
@@ -191,7 +219,7 @@
     	<div class="container">
         	<div class="row">
             	<div class="footer-content footer-insert">
-                	<p class="copyright">Copyright ©  2015 - 2115.</p>
+                	<p class="copyright">Copyright © 2015-2115. Author:Kermit 友情链接QQ:<img src="<?php echo $this->imagesUrl;?>frontdir/nqq.jpg" style="vertical-align:middle;"></p>
 					<p class="credit">Powered by <a href="<?php echo $this->webUrl;?>" title="04007.cn">04007.cn</a>. <?php echo $this->webset['web_beian'];?></p>
                 </div>
             </div><!-- .row -->
@@ -206,6 +234,42 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+
+<?php if( $this->controller=='article' && $this->action=='view') {  //($this->controller=='home' && $this->action=='index')  || ( 
+	?>
+$.ajaxSettings.async = false;
+$.getJSON('<?php echo $this->makeUrl("article/barrager");?>?id='+arid,function(data){
+//每条弹幕发送间隔
+var looper_time=3*1000;
+var items=data;
+//弹幕总数
+var total=data.length;
+//是否首次执行
+var run_once=true;
+//弹幕索引
+var index=0;
+//先执行一次
+barrager();
+function  barrager(){
+   if(items.length){
+      if(run_once){
+          //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+          looper=setInterval(barrager,looper_time);                
+          run_once=false;
+      }
+      //发布一个弹幕
+      $('body').barrager(items[index]);
+      //索引自增
+      index++;
+      //所有弹幕发布完毕，清除计时器。
+      if(index >= total){
+          clearInterval(looper);
+          return false;
+      }
+   }
+}
+});             
+<?php  } ?>
 </script>
 </body>
 </html>
