@@ -28,7 +28,6 @@
                         </a>
                         <div class="nav-collapse">
                             <ul class="nav pull-right">
-								<li><a href="http://history.04007.cn/kermit.php?r=Site/kermitlogin/me/04007cn" target="_blank">进历史上今天后台</a></li>
                                 <li><a href="#">管理员：<?php echo $_SESSION['adminer'];?></a></li>
                                 <li><a href="<?php echo $this->makeUrl('login/quit');?>">退出</a></li>
                             </ul>

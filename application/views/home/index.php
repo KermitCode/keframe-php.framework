@@ -16,7 +16,7 @@
                   </p>
                   <?php #提取第一张图片
 				  //$img=preg_match("/<img.*src=[\"](.*?)[\"].*\/>/",$row['ar_text'],$match);
-                  $img=preg_match('/<img.+src=\\\"?(.+\.(jpg|gif|bmp|bnp|png))\"?.+>/i',$row['ar_text'],$match);
+                  $img=preg_match('/<img\s*src=\s*\\\?"([^>"\\\]*)\\\?"[^>]*>/i',$row['ar_text'],$match);
 				  if($img) echo "<div class='mimg'><a href='".$this->makeUrl('Article/view',array('id'=>$row['id']))."'><img src='{$match[1]}' /></a></div>";
 				  ?>
              </div>

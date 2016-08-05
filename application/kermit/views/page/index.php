@@ -4,6 +4,7 @@
 						<thead>
 							<tr>
 								<th>序</th>
+                                <th>ID</th>
 								<th>所属类目</th>
                                 <th style="max-width:30%;">文章标题</th>
                                 <th>推荐</th>
@@ -18,6 +19,7 @@
 						$i=1;foreach($this->pageData as $k=>$row){?>
 							<tr>
 								<td><?php echo $i;?></td>
+                                <td><?php echo $row['id'];?></td>
 								<td><?php echo $this->cate[$row['ar_cid']]['cn'];?></td>
 								<td  style="max-width:400px;word-break:break-all;"><a href="<?php echo $this->makeUrl('/article/view',array('id'=>$row['id']));?>" target="_blank"><?php echo $row['ar_title'];?></a></td>
                                 <td><?php echo $row['ar_tui']?'<font color=red>是</font>':'否';?></td>

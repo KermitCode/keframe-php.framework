@@ -55,9 +55,13 @@
                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
                 <a title="KeFrame框架" href="<?php echo $this->makeUrl('keframework');?>" style="color:#fff;">KeFrame框架</a></li>
 				<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
-                <a title="KeFrame框架" target="_blank" href="http://history.04007.cn">历史上的今天</a></li>
+                <a title="历史上的今天" target="_blank" href="http://history.04007.cn">历史上的今天</a></li>
                 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
-                <a title="KeFrame框架" target="_blank" href="http://weather.04007.cn">04007城市温度之最</a></li>
+                <a title="04007天气" target="_blank" href="http://weather.04007.cn">04007天气</a></li>
+				<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
+                <a title="04007笑话" target="_blank" href="http://joke.04007.cn">04007笑话</a></li>
+                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home first menu-item-1852">
+                <a title="GitHub主页" onClick="javascript:window.location.href='https://github.com/KermitCode';" rel="nofollow">GitHub主页</a></li>
             </ul>
         </div>  
       </div><!-- /.container -->
@@ -76,8 +80,8 @@
                     <span>读不在三更五鼓，功只怕一曝十寒。</span>
                     </h3>
                 </div>
-				<aside class="col-xs-12 col-md-8 header-right widget-area sidebar">
-                	<section id="search-2" class="widget widget-1 even widget-first widget_search">
+				<aside class="col-xs-12 col-md-8 header-right widget-area sidebar" style="padding-bottom:10px;">
+                	<section id="search-2" class="widget widget-1 even widget-first widget_search" style="padding-bottom:2px;">
                     	<div class="widget-wrap">
                         	<form role="search" method="get" class="search-form" action="<?php echo $this->makeUrl('search/index');?>">
 								<input type="search" class="search-field" placeholder="Search ..." value="<?php
@@ -86,6 +90,9 @@
 							</form>
 						</div>
                     </section>
+					<div class="hotweather">
+						<?php echo $this->weather;?>
+					</div>
   				</aside>
 			</div>
             <!-- .row -->

@@ -337,6 +337,8 @@ abstract class KeDaobase
 			
 			$key=rtrim($key);
 
+            $value = $this->dbslash($value);
+
 			if(strpbrk($key, '<=>') !== false)
 			{
 	
@@ -444,8 +446,8 @@ abstract class KeDaobase
 		
 		foreach($data AS $key=>$value)
         {
-            
-            $value = addslashes($value);
+
+            $value = $this->dbslash($value);
             
             $sql_array[] = "{$key} = '{$value}'";
             
@@ -520,5 +522,29 @@ abstract class KeDaobase
 	  
 	}
 	
+
+    /***********************************
+		对入库的数据外部转义作处理。
+	 ***********************************/
+
+    protected function dbslash($data)
+    {
+		
+        if(is_array($data) or is_object($data))
+        {
+            foreach($data as $key=>$value)
+            {
+                return $this->dbslash($value);
+            }
+        }elseif(is_string($data)){
+            
+            return addslashes(stripslashes($data));
+
+        }else{
+        
+            return $data;
+        }
+	
+	}
 		
 }

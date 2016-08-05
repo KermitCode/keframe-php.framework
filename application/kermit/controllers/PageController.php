@@ -129,8 +129,8 @@ class PageController extends BaseController
 		else $this->checkAdmin();
 
 		//修改文章
-		$data['ar_text'] = str_replace(' style="line-height:1.5;"','',$data['ar_text']);
-		$data['ar_title'] = $data['ar_title'];
+		//$data['ar_text'] = str_replace(' style="line-height:1.5;"','',$data['ar_text']);
+		$data['ar_title'] = htmlspecialchars($data['ar_title']);
 		$data['ar_tags'] = str_replace('，',',',$data['ar_tags']);
 
 		$ArticleModel = new ArticleModel();
@@ -148,10 +148,11 @@ class PageController extends BaseController
 			$data['ar_yd'] = date('Y-m',$data['ar_time']);
 			$id = $ArticleModel->insert($data);
 		}
-	
+//echo '<pre>';print_r($data);echo '<pre>';exit;	
 		//取出文章中的资源ID
-		$rs=preg_match_all('/<a.*\/download\/(.*?)\.html.*<\/a>/i', $data['ar_text'], $source);
-	
+		//$rs=preg_match_all('/<a.*\/download\/(.*?)\.html.*<\/a>/i', $data['ar_text'], $source);
+        $rs=preg_match_all('/<a[^>]*\/download\/([\d]*?)\.html[^>)]*>[^>]*a>/i', $data['ar_text'], $source);
+
 		if($rs)
 		{
 			$keys=array_values($source[1]);

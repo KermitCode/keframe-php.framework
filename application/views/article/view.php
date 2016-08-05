@@ -1,5 +1,5 @@
-    <link rel="stylesheet" href="<?php echo $this->imagesUrl;?>frontdir/highlight/styles/default.css">
-    <script src="<?php echo $this->imagesUrl;?>frontdir/highlight/highlight.min.js"></script>
+    <link rel="stylesheet" href="<?php echo $this->imagesUrl;?>code/prettify.css">
+    <script src="<?php echo $this->imagesUrl;?>code/prettify.js"></script>
 	<article id="post-358" class="entry post publish author-hwijaya post-358 format-standard category-post-formats post_tag-post-formats post_tag-readability post_tag-standard-2">	
 		<div class="entry-wrap">
 			<header class="entry-header">
@@ -9,7 +9,6 @@
                     <span class="entry-author" >by <a href="<?php echo $this->webUrl;?>" title="04007.cn" rel="author" class="url fn n"><span itemprop="name">04007</span></a> <span style="margin-left:100px;font-size:11px;font-family:楷体gb2312;font-style:normal;color:#993;">本站原创文章,转载请注明文章出处：www.04007.cn</span></span>	
                 </div>
             </header>
-                            
             <div class="entry-content" itemprop="articleBody">
                 <?php echo $this->pageData['ar_text'];?>
             </div>
@@ -63,7 +62,7 @@
         </form>
     </article>
     <script language="javascript">
-	hljs.initHighlightingOnLoad();
+	prettyPrint();
 	$(document).ready(function(){
 		$.getLen=function(str){return str.replace(/[^\x00-\xff]/g, '**').length;};
 		$.cutstr=function(str,len){    
