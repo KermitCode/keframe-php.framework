@@ -8,7 +8,7 @@
    &nbsp;&nbsp;&nbsp;&nbsp;如果你的环境支持urlwrite,请确定.htaccess中的rewrite目录正确。<br>
 4，框架仍在完善，如有不足之处，敬请包涵。欢迎FORK
 
-框架的主页：<a href="http://www.04007.cn/keframework.html">http://www.04007.cn/keframework.html</a>
+框架的主页：<a href="http://keframework.04007.cn">http://keframework.04007.cn</a>
 
 友情提醒：因整个程序文件夹中带了SQL数据库文件以及DEMO网站的图片等数据，有点大。
 
