@@ -26,7 +26,9 @@
 5，WEB右侧栏目增加了历史上的今天模块，调用：http://history.04007.cn/HisMain/interface
 
 小事记.
-1、2007年开始编程使用asp、php做整站开发 
-2、2012年开始使用YII，CI，ThinkPhp，Laravel框架
-3、2014年12月开始写KeFrame1.0版
-4、2015年11月开始升级KeFrame2.0版
+1、2007年开始编程使用asp、php做整站开发<br> 
+2、2012年开始使用YII，CI，ThinkPhp，Laravel框架<br>
+3、2014年12月开始写KeFrame1.0版<br>
+4、2015年11月开始升级KeFrame2.0版<br>
+之后已经没有再维护了，有爱好的朋友欢迎下载观摩修改。框架手册截图：
+<img src="https://github.com/KermitCode/keframe-php.framework/blob/master/keframe.png?raw=true">
